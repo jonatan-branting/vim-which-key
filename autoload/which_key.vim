@@ -235,9 +235,9 @@ function! which_key#wait_for_input() " {{{
 
   " Append the prompt in the buffer at last when using floating or
   " popup wnidow, otherwise show it in the cmdline.
-  if !g:which_key_use_floating_win
-    call s:echo_prompt()
-  endif
+  " if !g:which_key_use_floating_win
+  call s:echo_prompt()
+  " endif
 
   let char = s:getchar()
   if char ==# ''
@@ -374,5 +374,5 @@ function! which_key#trigger() abort
 endfunction
 
 function! which_key#get_sep() abort
-  return get(g:, 'which_key_sep', '→')
+  return get(g:, 'which_key_sep', '->')
 endfunction

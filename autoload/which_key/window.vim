@@ -95,7 +95,8 @@ function! s:apply_custom_floating_opts(opts) abort
 endfunction
 
 function! s:show_floating_win(rows, layout) abort
-  let rows = s:append_prompt(a:rows)
+  let rows = [''] +  a:rows
+  let rows = s:append_prompt(rows)
 
   if !bufexists(s:bufnr)
     let s:bufnr = nvim_create_buf(v:false, v:false)
@@ -106,7 +107,7 @@ function! s:show_floating_win(rows, layout) abort
   let row_offset = &cmdheight + (&laststatus > 0 ? 1 : 0)
 
   let opts = {
-        \ 'row': &lines - nvim_buf_line_count(s:bufnr) - row_offset,
+        \ 'row': &lines - nvim_buf_line_count(s:bufnr) - row_offset + 1,
         \ 'height': a:layout.win_dim + 2,
         \ }
 
@@ -115,12 +116,12 @@ function! s:show_floating_win(rows, layout) abort
   endif
 
   if g:which_key_floating_relative_win
-    let opts.col = g:which_key_disable_default_offset ? 0 : s:origin_lnum_width
+    let opts.col = g:which_key_disable_default_offset ? 0 : 0 "s:origin_lnum_width
     let opts.width = winwidth(g:which_key_origin_winid) - opts.col
     let opts.win = g:which_key_origin_winid
     let opts.relative = 'win'
   else
-    let opts.col = g:which_key_disable_default_offset ? 0 : s:origin_lnum_width
+    let opts.col = g:which_key_disable_default_offset ? 0 : 0 "s:origin_lnum_width
     let opts.width = &columns - opts.col
     let opts.relative = 'editor'
   endif

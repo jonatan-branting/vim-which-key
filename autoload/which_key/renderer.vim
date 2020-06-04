@@ -158,7 +158,8 @@ function! s:create_rows(layout, mappings) abort
 endfunction " }}}
 
 function! s:combine(key, desc) abort
-  let item = join([a:key, g:which_key_sep, a:desc], ' ')
+  let item = join(["[", a:key, "]"], '')
+  let item = join([item, a:desc], ' ')
   if strdisplaywidth(item) > s:target_winwidth
     return item[ : s:target_winwidth - 4].'..'
   else
